@@ -1,0 +1,13 @@
+apiVersion: apps.flipper.io/v1alpha1
+kind: Flipper
+metadata:
+  labels:
+    app.kubernetes.io/name: flipper-controller
+    app.kubernetes.io/managed-by: kustomize
+  name: flipper-sample
+spec:
+  interval: 1m
+  match:
+    labels:
+      mesh: "true"
+    namespace: mesh

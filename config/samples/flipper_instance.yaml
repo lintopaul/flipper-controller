@@ -1,0 +1,11 @@
+apiVersion: apps.flipper.io/v1alpha1
+kind: Flipper
+metadata:
+  name: service-mesh-flipper2
+  namespace: flipper
+spec:
+  interval: 30s
+  match:
+    labels:
+      mesh: "true"
+    namespace: "mesh2"

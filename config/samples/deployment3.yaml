@@ -1,0 +1,26 @@
+# deployment with some random label mesh: "false"
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment3
+  labels:
+    app: nginx3
+    mesh: "false"
+  namespace: mesh
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx3
+      mesh: "false"
+  template:
+    metadata:
+      labels:
+        app: nginx3
+        mesh: "false"
+    spec:
+      containers:
+      - name: nginx3
+        image: nginx:alpine
+        ports:
+        - containerPort: 80

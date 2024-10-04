@@ -1,0 +1,33 @@
+#invalid sample
+apiVersion: crd.ricktech.io/v1alpha1
+kind: Flipper
+metadata:
+  labels:
+    app.kubernetes.io/name: flipper
+    app.kubernetes.io/instance: flipper-sample
+    app.kubernetes.io/part-of: flipper-controller
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: flipper-controller
+  name: flipper-invalid
+spec:
+  interval: abcd
+  match:
+    labels:
+      service: sales
+
+--- 
+#sample without interval
+apiVersion: crd.ricktech.io/v1alpha1
+kind: Flipper
+metadata:
+  labels:
+    app.kubernetes.io/name: flipper
+    app.kubernetes.io/instance: flipper-sample
+    app.kubernetes.io/part-of: flipper-controller
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: flipper-controller
+  name: flipper-interval-absent
+spec:
+  match:
+    labels:
+      service: sales

@@ -1,0 +1,92 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.16.1
+  name: flippers.apps.flipper.io
+spec:
+  group: apps.flipper.io
+  names:
+    kind: Flipper
+    listKind: FlipperList
+    plural: flippers
+    singular: flipper
+  scope: Namespaced
+  versions:
+  - name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: Flipper is the Schema for the flippers API
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: FlipperSpec defines the desired state of Flipper
+            properties:
+              interval:
+                description: |-
+                  Interval of rollout restart of deployment by default it is 10m
+                  See https://pkg.go.dev/time#ParseDuration for more information
+                type: string
+              match:
+                description: Match is used to filter the deployments
+                properties:
+                  labels:
+                    additionalProperties:
+                      type: string
+                    description: Labels to is used to filter the deployments
+                    type: object
+                  namespace:
+                    description: Namespace in which  to filter the deployments
+                    type: string
+                type: object
+            type: object
+          status:
+            description: FlipperStatus defines the observed state of Flipper
+            properties:
+              failedRolloutDeployments:
+                description: List of deployments that failed to get patched (namespacedName)
+                items:
+                  properties:
+                    name:
+                      type: string
+                    namespace:
+                      type: string
+                  required:
+                  - namespace
+                  type: object
+                type: array
+              lastScheduleTime:
+                description: Time of the last rollout restart
+                format: date-time
+                type: string
+              reason:
+                description: Reason for rollout restart failure
+                type: string
+              status:
+                description: Represents whether rollout restart was triggered
+                type: string
+            required:
+            - status
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

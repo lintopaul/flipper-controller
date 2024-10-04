@@ -1,0 +1,6 @@
+## Append samples of your project ##
+resources:
+- namespace.yaml
+- sample_cr.yaml
+- deployment.yaml
+# +kubebuilder:scaffold:manifestskustomizesamples
